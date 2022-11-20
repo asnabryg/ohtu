@@ -9,4 +9,4 @@ class Player:
         self.games = games
 
     def __str__(self):
-        return self.name + " team " + self.team + "  goals " + str(self.goals) + " assists " + str(self.assists)
+        return f"{self.name:20}{self.team} {str(self.goals):>2} + {str(self.assists):>2} = {str(self.goals + self.assists):<3}"
