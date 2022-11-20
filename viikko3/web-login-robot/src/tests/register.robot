@@ -21,6 +21,21 @@ Register With Nonmatching Password And Password Confirmation
     Input Register Credentials  mixu  tietokone1  tietokone
     Register Should Fail With Message  Passwords do not match
 
+Login After Successful Registration
+    Go To Login Page
+    Input Text  username  mixu
+    Input Text  password  tietokone1
+    Click Button  Login
+    Title Should Be  Ohtu Application main page
+
+Login After Failed Registration
+    Go To Login Page
+    Input Text  username  m
+    Input Text  password  tietokone1
+    Click Button  Login
+    Login Page Should Be Open
+    Page Should Contain  Invalid username or password 
+
 *** Keywords ***
 Input Register Credentials
     [Arguments]  ${username}  ${password}  ${password confirmation}
