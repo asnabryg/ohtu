@@ -37,8 +37,8 @@ class Ostoskori:
             del self.kaikki_ostokset[poistettava.nimi()]
 
     def tyhjenna(self):
-        pass
         # tyhjentää ostoskorin
+        self.kaikki_ostokset = {}
 
     def ostokset(self):
         # palauttaa listan jossa on korissa olevat ostos-oliot
