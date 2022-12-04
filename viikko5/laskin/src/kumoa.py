@@ -1,8 +1,9 @@
 
 class Kumoa:
-    def __init__(self, sovelluslogiikka, lue_syote):
+    def __init__(self, sovelluslogiikka, edellinen_komento):
         self._sovelluslogiikka = sovelluslogiikka
-        self._lue_syote = lue_syote
+        self.edellinen_komento = edellinen_komento
 
     def suorita(self):
-        pass
+        komento = self.edellinen_komento()
+        komento.kumoa()

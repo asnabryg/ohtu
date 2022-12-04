@@ -2,7 +2,12 @@
 class Erotus:
     def __init__(self, sovelluslogiikka, lue_syote):
         self._sovelluslogiikka = sovelluslogiikka
-        self._lue_syote = lue_syote
+        self.lue_syote = lue_syote
+        self.arvo = 0
 
     def suorita(self):
-        self._sovelluslogiikka.miinus(int(self._lue_syote()))
+        self.arvo = int(self.lue_syote())
+        self._sovelluslogiikka.miinus(self.arvo)
+    
+    def kumoa(self):
+        self._sovelluslogiikka.plus(self.arvo)

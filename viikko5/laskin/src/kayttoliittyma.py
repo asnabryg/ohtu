@@ -17,15 +17,16 @@ class Kayttoliittyma:
     def __init__(self, sovellus, root):
         self._sovellus = sovellus
         self._root = root
+        self._tulos_var = StringVar()
         self._komennot = {
             Komento.SUMMA: Summa(sovellus, self._lue_syote),
             Komento.EROTUS: Erotus(sovellus, self._lue_syote),
-            Komento.NOLLAUS: Nollaus(sovellus, self._lue_syote),
-            Komento.KUMOA: Kumoa(sovellus, self._lue_syote)
+            Komento.NOLLAUS: Nollaus(sovellus, self._tulos_var),
+            Komento.KUMOA: Kumoa(sovellus, self._edellinen_komento)
         }
+        self.edelliset_komennot = []
 
     def kaynnista(self):
-        self._tulos_var = StringVar()
         self._tulos_var.set(self._sovellus.tulos)
         self._syote_kentta = ttk.Entry(master=self._root)
 
@@ -66,26 +67,20 @@ class Kayttoliittyma:
 
     def _lue_syote(self):
         return self._syote_kentta.get()
+    
+    def _edellinen_komento(self):
+        return self.edelliset_komennot.pop()
 
     def _suorita_komento(self, komento):
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
+        if komento is not Komento.KUMOA:
+            self.edelliset_komennot.append(komento_olio)
 
-        try:
-            arvo = int(self._syote_kentta.get())
-        except Exception:
-            pass
-
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
-            pass
-
-        self._kumoa_painike["state"] = constants.NORMAL
+        if len(self.edelliset_komennot) > 0:
+            self._kumoa_painike["state"] = constants.NORMAL
+        else:
+            self._kumoa_painike["state"] = constants.DISABLED
 
         if self._sovellus.tulos == 0:
             self._nollaus_painike["state"] = constants.DISABLED
