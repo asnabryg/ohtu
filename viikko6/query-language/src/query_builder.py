@@ -5,6 +5,9 @@ class QueryBuilder:
     def __init__(self, matcher=All()):
         self._matcher = matcher
 
+    def oneOf(self, *matchers):
+        return QueryBuilder(Or(*matchers))
+
     def playsIn(self, team):
         return QueryBuilder(And(self._matcher, PlaysIn(team)))
 
