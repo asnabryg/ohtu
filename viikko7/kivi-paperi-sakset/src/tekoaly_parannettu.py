@@ -21,20 +21,18 @@ class TekoalyParannettu:
 
         viimeisin_siirto = self._muisti[self._vapaa_muisti_indeksi - 1]
 
-        k = 0
-        p = 0
-        s = 0
+        k, p, s = 0, 0, 0
 
         for i in range(0, self._vapaa_muisti_indeksi - 1):
             if viimeisin_siirto == self._muisti[i]:
                 seuraava = self._muisti[i + 1]
 
                 if seuraava == "k":
-                    k = k + 1
+                    k += 1
                 elif seuraava == "p":
-                    p = p + 1
+                    p += 1
                 else:
-                    s = s + 1
+                    s += 1
 
         # Tehdään siirron valinta esimerkiksi seuraavasti;
         # - jos kiviä eniten, annetaan aina paperi
@@ -44,8 +42,7 @@ class TekoalyParannettu:
             return "p"
         elif p > k or p > s:
             return "s"
-        else:
-            return "k"
+        return "k"
 
         # Tehokkaampiakin tapoja löytyy, mutta niistä lisää
         # Johdatus Tekoälyyn kurssilla!
